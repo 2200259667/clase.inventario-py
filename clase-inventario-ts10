@@ -1,0 +1,43 @@
+class Libro:
+    def __init__(self, titulo, autor):
+        self.titulo = titulo
+        self.autor = autor
+        self.estado = "disponible"
+
+class Usuario:
+    def __init__(self, nombre, id):
+        self.nombre = nombre
+        self.id = id
+        self.libros_prestados = []
+
+    def tomar_prestado(self, libro):
+        if libro.estado == "disponible":
+            libro.estado = "prestado"
+            self.libros_prestados.append(libro)
+            print(f"{self.nombre} ha tomado prestado el libro '{libro.titulo}'")
+        else:
+            print("El libro no está disponible")
+
+    def devolver(self, libro):
+        if libro in self.libros_prestados:
+            libro.estado = "disponible"
+            self.libros_prestados.remove(libro)
+            print(f"{self.nombre} ha devuelto el libro '{libro.titulo}'")
+        else:
+            print("Este libro no está en la lista de libros prestados por este usuario")
+
+# Crear algunos libros
+libro1 = Libro("El principito", "Antoine de Saint-Exupéry")
+libro2 = Libro("Harry Potter y la piedra filosofal", "J.K. Rowling")
+
+# Crear usuarios
+usuario1 = Usuario("Nicol", 1)
+usuario2 = Usuario("Diana", 2)
+
+# Usuario 1 toma prestado un libro
+usuario1.tomar_prestado(libro1)
+
+# Usuario 2 intenta tomar prestado el mismo libro
+usuario2.tomar_prestado(libro1)  #
+# Usuario 1 devuelve el libro
+usuario1.devolver(libro1)
